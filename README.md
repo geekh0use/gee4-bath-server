@@ -1,8 +1,14 @@
 # gee4-bath-server
+
 ギークハウス新宿四ツ谷の風呂センサーの親機サーバーとして使用している raspberry pi をセットアップする Ansible Playbook
 
+## Requirements
 
-## 開発環境
+- Ansible 2.8 or later
+
+## Usage
+
+## Development
 
 QEMUを使ってx86_64上でraspbianのテスト環境を構築する方法
 
@@ -41,7 +47,6 @@ QEMUの画面からraspbianにログインしてSSHを起動させる。
 - user: pi
 - password: raspberry
 
-
 ``` console
 $ sudo systemctl start ssh
 ```
@@ -54,4 +59,20 @@ $ sudo systemctl start ssh
 $ ssh pi@localhost -p 5022
 ```
 
-あとは煮るなり焼くなりお好きにどうぞ
+接続できたら、Ansibleで接続するようのユーザーアカウントを作成しておく。
+（piユーザーはPlaybookで消す）
+
+``` console
+# useradd -m -G sudo -s /bin/bash ユーザー名
+# passwd ユーザー名
+```
+
+できたらゲストOSからログアウトする
+
+### 公開鍵を設置する
+
+あらかじめ、ゲストOSへのSSH接続に使用したいキーペアを用意しておく。
+
+``` console
+$ ssh-copy-id -i 公開鍵へのPATH -p 5022 pi@localhost
+```
