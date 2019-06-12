@@ -1,0 +1,6 @@
+ansible.cfg
+hosts
+vagrant.py
+Vagrantfile
+.vagrant
+*.retry

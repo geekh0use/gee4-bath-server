@@ -1,0 +1,37 @@
+- name: Setup gee4 bath sensor server
+  hosts: all
+  become: true
+  vars_files:
+    - vars.yaml
+  tasks:
+  - name: Set hostname
+    hostname:
+      name: "{{ hostname }}"
+  - name: Set hosts
+    template:
+      src: hosts.j2
+      dest: /etc/hosts
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+  - name: Create locale japanese
+    locale_gen:
+      name: "{{ locale }}"
+  - name: Update locale
+    command: update-locale "{{ locale }}"
+  - name: Set timezone
+    timezone:
+      name: "{{ timezone }}"
+  - name: Enable avahi
+    systemd:
+      name: avahi-daemon
+      enabled: yes
+  - name: Set rc.local file
+    copy:
+      src: rc.local
+      dest: /etc/rc.local
+      owner: root
+      group: root
+      mode: u=rwx,g=rx,o=rx
+      backup: yes
