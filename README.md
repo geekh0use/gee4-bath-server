@@ -8,6 +8,10 @@
 
 ## Usage
 
+``` console
+$ ansible-playbook -i hosts_prod gee4-bath-server.yaml -u <ユーザー名> -K
+```
+
 ## Development
 
 QEMUを使ってx86_64上でraspbianのテスト環境を構築する方法
