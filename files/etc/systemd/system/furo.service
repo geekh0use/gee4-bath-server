@@ -1,0 +1,13 @@
+[Unit]
+Description=Furo Service
+Documentation=https://github.com/geekh0use/gee4-bath-sensor
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/ruby /opt/gee4-bath-sensor/furo.rb start
+ExecStop=/usr/bin/ruby /opt/gee4-bath-sensor/furo.rb stop
+Restart=always
+PIDFile=/var/run/furo.pid
+
+[Install]
+WantedBy=default.target

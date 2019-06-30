@@ -2,7 +2,7 @@
   hosts: all
   become: true
   vars_files:
-    - vars.yaml
+    - vars/prod.yaml
   tasks:
   - name: Set hostname
     hostname:
@@ -35,3 +35,29 @@
       group: root
       mode: u=rwx,g=rx,o=rx
       backup: yes
+  #
+  # gee4-bath-server
+  #
+  - name: Install ruby
+    apt:
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - ruby2.3
+      - ruby2.3-dev
+  - name: Clone gee4-bath-server repo
+    git:
+      repo: 'https://github.com/geekh0use/gee4-bath-sensor'
+      dest: /opt/gee4-bath-sensor
+  - name: Set systemd service file for gee4-bath-sensor
+    copy:
+      src: etc/systemd/system/furo.service
+      dest: /etc/systemd/system/furo.service
+      owner: root
+      group: root
+      mode: '664'
+  - name: Start furo.service
+    systemd:
+      state: started
+      name: furo.service
+      daemon_reload: yes
