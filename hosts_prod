@@ -3,4 +3,3 @@ gee4bath.local
 
 [gee4:vars]
 ansible_port=22
-ansible_ssh_user=ansible
