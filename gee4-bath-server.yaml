@@ -59,5 +59,6 @@
   - name: Start furo.service
     systemd:
       state: started
+      enabled: yes
       name: furo.service
       daemon_reload: yes
